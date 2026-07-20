@@ -1,5 +1,7 @@
 # @modelcontextprotocol/core
 
+## 2.0.0-beta.5
+
 ## 2.0.0-beta.4
 
 ### Minor Changes

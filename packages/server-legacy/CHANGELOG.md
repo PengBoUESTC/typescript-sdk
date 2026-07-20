@@ -1,5 +1,12 @@
 # @modelcontextprotocol/server-legacy
 
+## 2.0.0-beta.5
+
+### Patch Changes
+
+- Updated dependencies []:
+    - @modelcontextprotocol/core@2.0.0-beta.5
+
 ## 2.0.0-beta.4
 
 ### Minor Changes
