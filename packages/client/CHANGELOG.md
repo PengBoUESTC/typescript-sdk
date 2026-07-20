@@ -1,5 +1,20 @@
 # @modelcontextprotocol/client
 
+## 2.0.0-beta.5
+
+### Minor Changes
+
+- [#2501](https://github.com/modelcontextprotocol/typescript-sdk/pull/2501) [`1480241`](https://github.com/modelcontextprotocol/typescript-sdk/commit/1480241e2a2a7f0ceee8e7723b2adcf88579bb36) Thanks [@felixweinberger](https://github.com/felixweinberger)! - Export the `Protocol` base class and `mergeCapabilities` from the `@modelcontextprotocol/client` and `@modelcontextprotocol/server` package roots, restoring the v1 import for consumers that subclass `Protocol` (e.g. the MCP Apps SDK). The client and server packages each bundle their own compiled copy of the class, so import it from one package consistently within a process.
+
+    The codemod now rewrites `Protocol` and `mergeCapabilities` imports from `shared/protocol.js` to the client or server package root, like the module's other symbols, instead of dropping them with an action-required marker.
+
+- [#2511](https://github.com/modelcontextprotocol/typescript-sdk/pull/2511) [`f60dff0`](https://github.com/modelcontextprotocol/typescript-sdk/commit/f60dff0674954ab516739f21ad9905349c8e9249) Thanks [@felixweinberger](https://github.com/felixweinberger)! - `ConnectOptions.prior` accepts a cached era verdict — the new exported type `PriorDiscovery`. `{ kind: 'modern', discover }` adopts a previously obtained `DiscoverResult` with zero round trips; `{ kind: 'legacy' }` skips the `server/discover` probe and runs the plain `initialize` handshake directly, for servers known out-of-band to be legacy — without pinning the client to `mode: 'legacy'`: stop supplying the verdict and `connect()` falls back to the configured `versionNegotiation` mode (under `'auto'`, it re-probes and rediscovers an upgraded server). Freshness is the supplying host's responsibility — a stale legacy verdict succeeds silently against an upgraded server, so hosts must date cached legacy verdicts in their own storage and stop supplying them past their policy horizon. Persisted-blob plumbing is hardened: `prior: null` is treated as absent, the modern arm's `discover` payload is schema-validated before any connection state changes, and an unrecognized shape rejects with a typed `SdkError(EraNegotiationFailed)` instead of a `TypeError`.
+
+### Patch Changes
+
+- Updated dependencies []:
+    - @modelcontextprotocol/core@2.0.0-beta.5
+
 ## 2.0.0-beta.4
 
 ### Minor Changes
